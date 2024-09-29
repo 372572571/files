@@ -1,0 +1,13 @@
+pkg: swaggerFiles
+
+dest: "./swagger"
+
+fmt: true
+
+spread: true
+
+custom:
+  - files:
+      - "./dist"
+
+    base: "dist"
