@@ -1,0 +1,4534 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "admin/pab/v1/pab_transfer.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "PabTransfer",
+      "description": "平安银行-充值"
+    },
+    {
+      "name": "PabRegisterBill",
+      "description": "平安银行-挂账"
+    },
+    {
+      "name": "Pab",
+      "description": "平安银行"
+    },
+    {
+      "name": "Role",
+      "description": "角色"
+    },
+    {
+      "name": "Resource",
+      "description": "资源"
+    },
+    {
+      "name": "Misc"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "OrdersManager",
+      "description": "订单管理"
+    },
+    {
+      "name": "BusinessUserRegistered",
+      "description": "业务用户注册"
+    },
+    {
+      "name": "BusinessUser",
+      "description": "业务用户"
+    },
+    {
+      "name": "Perm",
+      "description": "权限"
+    },
+    {
+      "name": "Invoice",
+      "description": "发票"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/business/query/user": {
+      "get": {
+        "summary": "查询用户,基础信息",
+        "description": "查询用户,基础信息",
+        "operationId": "BusinessUser_query_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QueryUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "real_name",
+            "description": "真实姓名",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "description": "@gotags: binding:\"gt=0,unique,dive,oneof=2 3 4\" form:\"type\" comment:\"有效类型: \\n 2: 供应链公司 \\n 3: 钢厂 \\n 4: 废品站 \\n \"\n\n有效类型: \n 2: 供应链公司 \n 3: 钢厂 \n 4: 废品站",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "BusinessUser"
+        ]
+      }
+    },
+    "/v1/business/user": {
+      "get": {
+        "summary": "获取用户列表",
+        "description": "获取用户列表",
+        "operationId": "BusinessUser_list_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminbusiness_userv1ListUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "mobile",
+            "description": "手机号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "状态,[0:未指定,1:启用,2:禁用,3:临时锁定]\n\n有效类型: \n 1: 启用 \n 2: 禁用 \n 3: 临时锁定",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "real_name",
+            "description": "真实姓名",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "description": "@gotags: binding:\"gt=0,unique,dive,oneof=2 3 4 5\" form:\"type\" comment:\"有效类型: \\n 2: 供应链公司 \\n 3: 钢厂 \\n 4: 废品站 \\n 5: 司机 \\n \"\n\n有效类型: \n 2: 供应链公司 \n 3: 钢厂 \n 4: 废品站 \n 5: 司机",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "BusinessUser"
+        ]
+      }
+    },
+    "/v1/business/user/registered/company": {
+      "post": {
+        "summary": "注册公司用户",
+        "description": "注册公司用户",
+        "operationId": "BusinessUserRegistered_registered_company",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredCompanyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.business_user.registered_company.registered_company_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredCompanyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BusinessUserRegistered"
+        ]
+      }
+    },
+    "/v1/business/user/registered/driver": {
+      "post": {
+        "summary": "注册司机用户",
+        "description": "注册司机用户",
+        "operationId": "BusinessUserRegistered_registered_driver",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredDriverResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.business_user.registered_driver.registered_driver_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredDriverRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BusinessUserRegistered"
+        ]
+      }
+    },
+    "/v1/business/user/registered/site": {
+      "post": {
+        "summary": "站点用户注册",
+        "description": "站点用户注册",
+        "operationId": "BusinessUserRegistered_registered_site",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredSiteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.business_user.registered_site.registered_site_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisteredSiteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BusinessUserRegistered"
+        ]
+      }
+    },
+    "/v1/business/user/{id}": {
+      "get": {
+        "summary": "获取用户详情",
+        "description": "获取用户详情",
+        "operationId": "BusinessUser_get_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminbusiness_userv1GetUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"omitempty\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "BusinessUser"
+        ]
+      }
+    },
+    "/v1/business/{id}/commission-rate": {
+      "patch": {
+        "summary": "更新用户佣金比例",
+        "description": "更新用户佣金比例",
+        "operationId": "BusinessUser_commission_rate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CommissionRateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"omitempty\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BusinessUsercommission_rateBody"
+            }
+          }
+        ],
+        "tags": [
+          "BusinessUser"
+        ]
+      }
+    },
+    "/v1/invoice": {
+      "get": {
+        "summary": "获取发票列表",
+        "description": "获取发票列表",
+        "operationId": "Invoice_list_invoice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListInvoiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orders_id",
+            "description": "订单id",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Invoice"
+        ]
+      }
+    },
+    "/v1/invoice/{invoice_apply_id}": {
+      "get": {
+        "summary": "获取发票详情",
+        "description": "获取发票详情",
+        "operationId": "Invoice_get_invoice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetInvoiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invoice_apply_id",
+            "description": "@gotags: binding:\"number\" form:\"invoice_apply_id\" comment:\"发票申请id  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Invoice"
+        ]
+      }
+    },
+    "/v1/misc/file/uploads": {
+      "post": {
+        "summary": "上传文件",
+        "description": "上传文件",
+        "operationId": "Misc_uploads",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UploadsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.misc.uploads.uploads_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UploadsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Misc"
+        ]
+      }
+    },
+    "/v1/orders": {
+      "get": {
+        "summary": "获取订单列表",
+        "description": "获取订单列表",
+        "operationId": "OrdersManager_list_orders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "状态 [1:待发货, 2:待收货, 3:转账(工厂-\u003e供应链), 4:付款(供应链-\u003e站点),5:付款中, 80:已完成]\n\n有效类型: \n 1: 待发货 \n 2: 待收货 \n 3: 转账(工厂-\u003e供应链) \n 4: 付款(供应链-\u003e站点) \n 5: 付款中 \n 80: 已完成",
+            "in": "query",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "OrdersManager"
+        ]
+      }
+    },
+    "/v1/orders/{id}": {
+      "get": {
+        "summary": "获取订单信息",
+        "description": "获取订单信息",
+        "operationId": "OrdersManager_get_orders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,numeric\" form:\"id\" comment:\"订单id  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "OrdersManager"
+        ]
+      }
+    },
+    "/v1/pab/bill/register-bill": {
+      "get": {
+        "summary": "获取登记挂账列表",
+        "description": "获取登记挂账列表",
+        "operationId": "PabRegisterBill_list_register_bill_support_withdraw",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListRegisterBillSupportWithdrawResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "order_no",
+            "description": "订单号(全局唯一)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "挂账状态,[0:未指定,1:进行中,2:成功,3:失败,4:撤消]\n\n有效类型: \n 0: 未指定 \n 1: 进行中 \n 2: 成功 \n 3: 失败 \n 4: 撤消",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "PabRegisterBill"
+        ]
+      }
+    },
+    "/v1/pab/bill/register-bill/{id}": {
+      "get": {
+        "summary": "登记挂账结果查询",
+        "description": "登记挂账结果查询",
+        "operationId": "PabRegisterBill_register_bill_support_withdraw_result",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterBillSupportWithdrawResultResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,number\" form:\"id\" comment:\"  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "PabRegisterBill"
+        ]
+      }
+    },
+    "/v1/pab/member-bind-query": {
+      "post": {
+        "summary": "会员绑定信息查询- KFEJZB6098",
+        "description": "会员绑定信息查询- KFEJZB6098",
+        "operationId": "Pab_member_bind_query",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1MemberBindQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.pab.member_bind_query.member_bind_query_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1MemberBindQueryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Pab"
+        ]
+      }
+    },
+    "/v1/pab/register-bill-support-withdraw": {
+      "post": {
+        "summary": "登记挂账(支持撤销) - KFEJZB6139",
+        "description": "# RegisterBillSupportWithdraw 登记挂账(支持撤销)\n  ```\n  可实现把不明来账或自有资金等已登记在挂账子账户下的资金调整到普通会员子账户。\n  即通过申请调用此接口，将会减少挂账子账户的资金，调增指定的普通会员子账户的可提现余额及可用余额。\n  此接口不支持把挂账子账户资金清分到功能子账户（营销子账户除外）  \n  ```",
+        "operationId": "PabRegisterBill_register_bill_support_withdraw",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterBillSupportWithdrawResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.pab.register_bill_support_withdraw.register_bill_support_withdraw_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterBillSupportWithdrawRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PabRegisterBill"
+        ]
+      }
+    },
+    "/v1/pab/transfer": {
+      "get": {
+        "summary": "获取充值转账列表",
+        "description": "获取充值转账列表",
+        "operationId": "PabTransfer_list_pab_transfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListPabTransferResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "转账状态,[0:未指定,1:待处理,2:处理中,3:成功或已处理,4:无须处理]\n\n有效类型: \n 0: 未指定 \n 1: 待处理 \n 2: 处理中 \n 3: 成功或已处理 \n 4: 无须处理",
+            "in": "query",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "PabTransfer"
+        ]
+      }
+    },
+    "/v1/pab/transfer/adjust/{id}": {
+      "patch": {
+        "summary": "平安银行充值调账",
+        "description": "平安银行充值调账",
+        "operationId": "PabTransfer_adjust_pab_transfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdjustPabTransferResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,number\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PabTransferadjust_pab_transferBody"
+            }
+          }
+        ],
+        "tags": [
+          "PabTransfer"
+        ]
+      }
+    },
+    "/v1/pab/transfer/adjust/{pab_transfer_id}": {
+      "get": {
+        "summary": "获取调账结果",
+        "description": "获取调账结果",
+        "operationId": "PabTransfer_adjust_result",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdjustResultResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pab_transfer_id",
+            "description": "@gotags: binding:\"required,number\" form:\"pab_transfer_id\" comment:\"系统编号  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "PabTransfer"
+        ]
+      }
+    },
+    "/v1/pab/transfer/{pab_transfer_id}": {
+      "get": {
+        "summary": "获取充值转账信息",
+        "description": "获取充值转账信息",
+        "operationId": "PabTransfer_get_pab_transfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPabTransferResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pab_transfer_id",
+            "description": "@gotags: binding:\"required,number\" form:\"pab_transfer_id\" comment:\"系统编号  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "PabTransfer"
+        ]
+      }
+    },
+    "/v1/permission/permission": {
+      "patch": {
+        "summary": "重载所有角色的权限",
+        "operationId": "Perm_ReloadPermission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "Perm"
+        ]
+      }
+    },
+    "/v1/permission/permission/{id}": {
+      "patch": {
+        "summary": "重新加载指定角色的权限",
+        "operationId": "Perm_ReloadPermissionForRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PermReloadPermissionForRoleBody"
+            }
+          }
+        ],
+        "tags": [
+          "Perm"
+        ]
+      }
+    },
+    "/v1/permission/policy": {
+      "patch": {
+        "summary": "重载所有权限",
+        "operationId": "Perm_ReloadPolicy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "Perm"
+        ]
+      }
+    },
+    "/v1/permission/role/{id}": {
+      "patch": {
+        "summary": "重新加载指定角色的权限和权限用户",
+        "operationId": "Perm_ReloadRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PermReloadRoleBody"
+            }
+          }
+        ],
+        "tags": [
+          "Perm"
+        ]
+      }
+    },
+    "/v1/permission/user/{id}": {
+      "patch": {
+        "summary": "重新加载指定用户的角色",
+        "operationId": "Perm_ReloadRolesForUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PermReloadRolesForUserBody"
+            }
+          }
+        ],
+        "tags": [
+          "Perm"
+        ]
+      }
+    },
+    "/v1/public/admin/init": {
+      "get": {
+        "summary": "初始化admin账号",
+        "description": "初始化admin账号",
+        "operationId": "User_init_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InitUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/public/sys/login": {
+      "post": {
+        "summary": "系统后台用户登录",
+        "description": "系统后台用户登录",
+        "operationId": "User_sys_login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SysLoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.user.sys_login.sys_login_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SysLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/resource": {
+      "get": {
+        "summary": "获取资源列表",
+        "description": "获取资源列表",
+        "operationId": "Resource_list_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "description": "资源名称",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_enabled",
+            "description": "是否启用",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Resource"
+        ]
+      },
+      "post": {
+        "summary": "增加资源",
+        "description": "增加资源",
+        "operationId": "Resource_add_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.resource.add_resource.add_resource_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Resource"
+        ]
+      },
+      "put": {
+        "summary": "更新资源",
+        "description": "更新资源",
+        "operationId": "Resource_update_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.resource.update_resource.update_resource_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Resource"
+        ]
+      }
+    },
+    "/v1/resource/{id}": {
+      "get": {
+        "summary": "获取资源",
+        "description": "获取资源",
+        "operationId": "Resource_get_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required\" form:\"id\" comment:\"资源ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Resource"
+        ]
+      },
+      "delete": {
+        "operationId": "Resource_delete_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required\" form:\"id\" comment:\"资源ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Resource"
+        ]
+      }
+    },
+    "/v1/roles": {
+      "get": {
+        "summary": "获取角色列表",
+        "description": "获取角色列表",
+        "operationId": "Role_list_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "description": "资源名称",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_enabled",
+            "description": "是否启用",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "total",
+            "description": "总数",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      },
+      "post": {
+        "summary": "增加角色",
+        "description": "增加角色",
+        "operationId": "Role_add_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.role.add_role.add_role_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddRoleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/v1/roles/{id}": {
+      "get": {
+        "summary": "获取角色",
+        "description": "获取角色",
+        "operationId": "Role_get_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\" form:\"id\" comment:\"角色ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      },
+      "put": {
+        "summary": "更新角色",
+        "description": "更新角色",
+        "operationId": "Role_update_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\" form:\"id\" comment:\"角色ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Roleupdate_roleBody"
+            }
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/v1/roles/{id}/authz": {
+      "post": {
+        "summary": "角色授权,分配资源",
+        "description": "角色授权,分配资源",
+        "operationId": "Role_authz_role_with_resource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AuthzRoleWithResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\" form:\"id\" comment:\"角色ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Roleauthz_role_with_resourceBody"
+            }
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/v1/roles/{id}/resources": {
+      "get": {
+        "summary": "获取角色的资源id列表",
+        "description": "获取角色的资源id列表",
+        "operationId": "Role_list_resource_ids_with_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListResourceIdsWithRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"gt=0\" form:\"id\" comment:\"角色ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/v1/roles/{id}/{status}": {
+      "patch": {
+        "summary": "启用/禁用角色",
+        "description": "启用/禁用角色",
+        "operationId": "Role_toggle_role_status",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ToggleRoleStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required\" form:\"id\" comment:\"角色ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "有效类型: \n 1: 开启 \n 0: 关闭 \n ",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Roletoggle_role_statusBody"
+            }
+          }
+        ],
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/v1/sys-user": {
+      "get": {
+        "summary": "获取用户列表",
+        "description": "获取用户列表",
+        "operationId": "User_list_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminuserv1ListUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "description": "登录名,(不可修改)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nickname",
+            "description": "登录名,(不可修改)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "mobile",
+            "description": "手机号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "状态,[0:未指定,1:启用,2:禁用,3:临时锁定]\n\n有效类型: \n 1: 启用 \n 2: 禁用 \n 3: 临时锁定",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "type",
+            "description": "类型,[0:未指定,1:系统用户,2:供应链公司,3:钢厂,4:废品站,5:司机]\n\n有效类型: \n 1: 系统用户 \n 2: 供应链公司 \n 3: 钢厂 \n 4: 废品站 \n 5: 司机",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page_index",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": "一页多少条",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      },
+      "patch": {
+        "summary": "修改用户信息",
+        "description": "修改用户信息",
+        "operationId": "User_update_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.user.update_user.update_user_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/password": {
+      "put": {
+        "summary": "重置登录密码",
+        "description": "重置登录密码",
+        "operationId": "User_reset_password",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.user.reset_password.reset_password_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      },
+      "patch": {
+        "summary": "修改密码",
+        "description": "修改密码",
+        "operationId": "User_update_password",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdatePasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.user.update_password.update_password_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdatePasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/register": {
+      "post": {
+        "summary": "创建系统用户",
+        "description": "创建系统用户",
+        "operationId": "User_create_sys_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateSysUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "admin.user.create_sys_user.create_sys_user_request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateSysUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/{id}": {
+      "get": {
+        "summary": "获取用户",
+        "description": "获取用户",
+        "operationId": "User_get_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminuserv1GetUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"omitempty\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/{id}/authz": {
+      "post": {
+        "summary": "用户授权,分配角色",
+        "description": "用户授权,分配角色",
+        "operationId": "User_authz_user_with_role",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AuthzUserWithRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,gt=0\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Userauthz_user_with_roleBody"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/{id}/resources": {
+      "get": {
+        "summary": "取用户的资源列表",
+        "description": "取用户的资源列表",
+        "operationId": "User_list_resource_with_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListResourceWithUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,gt=0\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/{id}/roles": {
+      "get": {
+        "summary": "获取用户的角色列表",
+        "description": "获取用户的角色列表",
+        "operationId": "User_list_role_with_user",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListRoleWithUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "@gotags: binding:\"required,gt=0\" form:\"id\" comment:\"用户ID  \"",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/v1/sys-user/{status}": {
+      "put": {
+        "summary": "切换用户状态",
+        "description": "切换用户状态",
+        "operationId": "User_toggle_user_status",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ToggleUserStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "有效类型: \n 1: 启用 \n 2: 禁用 \n 3: 临时锁定 \n ",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usertoggle_user_statusBody"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessUsercommission_rateBody": {
+      "type": "object",
+      "properties": {
+        "commission_rate": {
+          "type": "string",
+          "title": "佣金比例"
+        }
+      },
+      "description": "admin.business_user.commission_rate.commission_rate_request",
+      "title": "commission_rate_request"
+    },
+    "PabTransferadjust_pab_transferBody": {
+      "type": "object",
+      "properties": {
+        "pab_transfer_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "系统编号"
+        }
+      },
+      "description": "admin.pab.adjust_pab_transfer.adjust_pab_transfer_request",
+      "title": "adjust_pab_transfer_request"
+    },
+    "PermReloadPermissionForRoleBody": {
+      "type": "object",
+      "properties": {
+        "dummy": {
+          "type": "string"
+        }
+      }
+    },
+    "PermReloadRoleBody": {
+      "type": "object",
+      "properties": {
+        "dummy": {
+          "type": "string"
+        }
+      }
+    },
+    "PermReloadRolesForUserBody": {
+      "type": "object",
+      "properties": {
+        "dummy": {
+          "type": "string"
+        }
+      }
+    },
+    "Roleauthz_role_with_resourceBody": {
+      "type": "object",
+      "properties": {
+        "resource_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "资源ID"
+        }
+      },
+      "description": "admin.role.authz_role_with_resource.authz_role_with_resource_request",
+      "title": "authz_role_with_resource_request"
+    },
+    "Roletoggle_role_statusBody": {
+      "type": "object",
+      "description": "admin.role.toggle_role_status.toggle_role_status_request",
+      "title": "toggle_role_status_request"
+    },
+    "Roleupdate_roleBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "desc": {
+          "type": "string",
+          "title": "角色描述"
+        }
+      },
+      "description": "admin.role.update_role.update_role_request",
+      "title": "update_role_request",
+      "required": [
+        "name"
+      ]
+    },
+    "Userauthz_user_with_roleBody": {
+      "type": "object",
+      "properties": {
+        "role_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "角色ID"
+        }
+      },
+      "description": "admin.user.authz_user_with_role.authz_user_with_role_request",
+      "title": "authz_user_with_role_request",
+      "required": [
+        "role_id"
+      ]
+    },
+    "Usertoggle_user_statusBody": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "用户ID"
+        }
+      },
+      "description": "admin.user.toggle_user_status.toggle_user_status_request",
+      "title": "toggle_user_status_request"
+    },
+    "adminbusiness_userv1GetUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/incorporateSysUser",
+          "title": "@gotags: binding:\"omitempty\" form:\"user\" comment:\"\""
+        },
+        "personal": {
+          "$ref": "#/definitions/incorporateUserPersonal",
+          "title": "@gotags: binding:\"omitempty\" form:\"personal\" comment:\"\""
+        },
+        "company": {
+          "$ref": "#/definitions/incorporateUserCompany",
+          "title": "@gotags: binding:\"omitempty\" form:\"company\" comment:\"\""
+        },
+        "car": {
+          "$ref": "#/definitions/incorporateUserCar",
+          "title": "@gotags: binding:\"omitempty\" form:\"car\" comment:\"\""
+        },
+        "pab_bind_card": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporatePabBindCard"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"pab_bind_card\" comment:\"\""
+        },
+        "is_set_pay_password": {
+          "type": "boolean",
+          "title": "是否设置交易密码"
+        }
+      },
+      "description": "admin.business_user.get_user.get_user_response",
+      "title": "get_user_response"
+    },
+    "adminbusiness_userv1ListUserResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateSysUser"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        },
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        }
+      },
+      "description": "admin.business_user.list_user.list_user_response",
+      "title": "list_user_response"
+    },
+    "adminuserv1GetUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/incorporateSysUser",
+          "title": "@gotags: binding:\"omitempty\" form:\"user\" comment:\"\""
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateRole"
+          },
+          "title": "用户角色"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateResource"
+          },
+          "title": "用户资源"
+        }
+      },
+      "description": "admin.user.get_user.get_user_response",
+      "title": "get_user_response"
+    },
+    "adminuserv1ListUserResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateSysUser"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        },
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        }
+      },
+      "description": "admin.user.list_user.list_user_response",
+      "title": "list_user_response"
+    },
+    "incorporateAdminListInvoiceResponseItem": {
+      "type": "object",
+      "properties": {
+        "invoice": {
+          "$ref": "#/definitions/incorporateInvoice",
+          "title": "@gotags: binding:\"omitempty\" form:\"invoice\" comment:\"\""
+        }
+      },
+      "description": "admin.invoice.list_invoice.admin_list_invoice_response_item",
+      "title": "admin_list_invoice_response_item"
+    },
+    "incorporateAdminListOrdersResponseItem": {
+      "type": "object",
+      "properties": {
+        "orders": {
+          "$ref": "#/definitions/incorporateOrders",
+          "title": "@gotags: binding:\"omitempty\" form:\"orders\" comment:\"\""
+        },
+        "bind": {
+          "$ref": "#/definitions/incorporateInvoiceApplyOrders",
+          "title": "@gotags: binding:\"omitempty\" form:\"bind\" comment:\"\""
+        },
+        "material": {
+          "$ref": "#/definitions/incorporateOrdersMaterial",
+          "title": "@gotags: binding:\"omitempty\" form:\"material\" comment:\"\""
+        }
+      },
+      "description": "admin.orders_manager.list_orders.admin_list_orders_response_item",
+      "title": "admin_list_orders_response_item"
+    },
+    "incorporateInvoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "发票id"
+        },
+        "amount": {
+          "type": "string",
+          "title": "发票金额"
+        },
+        "resource": {
+          "type": "string",
+          "title": "发票资源"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        },
+        "invoice_apply_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "申请关联id"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户id"
+        }
+      },
+      "description": "model.invoice.invoice",
+      "title": "invoice"
+    },
+    "incorporateInvoiceApplyOrders": {
+      "type": "object",
+      "properties": {
+        "orders_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单 id"
+        },
+        "invoice_apply_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "关联绑定的发票申请id"
+        },
+        "allow_invoice_amount": {
+          "type": "string",
+          "title": "允许开票金额"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "绑定状态 [1:等待绑定,2:已绑定,99:禁止绑定]"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        }
+      },
+      "description": "model.invoice_apply_orders.invoice_apply_orders",
+      "title": "invoice_apply_orders"
+    },
+    "incorporateOrders": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单id"
+        },
+        "factory_uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "工厂id"
+        },
+        "site_uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "站点用户id"
+        },
+        "supply_chain_uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "供应链公司"
+        },
+        "driver_uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "司机id"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 待发货 \n 2: 待收货 \n 3: 转账(工厂-\u003e供应链) \n 4: 付款(供应链-\u003e站点) \n 5: 付款中 \n 80: 已完成 \n ",
+          "title": "状态 [1:待发货, 2:待收货, 3:转账(工厂-\u003e供应链), 4:付款(供应链-\u003e站点),5:付款中, 80:已完成]"
+        },
+        "over_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "完成时间"
+        },
+        "pay_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付时间"
+        },
+        "send_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "发货时间"
+        },
+        "receive_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "收货时间"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "car_number": {
+          "type": "string",
+          "title": "车号"
+        },
+        "load_address": {
+          "type": "string",
+          "title": "装货地址"
+        },
+        "entry_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "入场时间"
+        },
+        "exit_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "出场时间"
+        },
+        "buyer_phone": {
+          "type": "string",
+          "title": "购买方联系电话"
+        },
+        "buyer_address": {
+          "type": "string",
+          "title": "购买方地址"
+        },
+        "buyer_contact": {
+          "type": "string",
+          "title": "购买方联系人"
+        },
+        "seller_phone": {
+          "type": "string",
+          "title": "销售方联系电话"
+        },
+        "seller_address": {
+          "type": "string",
+          "title": "销售方地址"
+        },
+        "seller_contact": {
+          "type": "string",
+          "title": "销售方联系人"
+        },
+        "logistics_phone": {
+          "type": "string",
+          "title": "物流电话"
+        },
+        "amount": {
+          "type": "string",
+          "title": "订单总金额"
+        },
+        "commission": {
+          "type": "string",
+          "title": "佣金"
+        },
+        "amount_without_commission": {
+          "type": "string",
+          "title": "不含佣金金额"
+        }
+      },
+      "description": "model.orders.orders",
+      "title": "orders"
+    },
+    "incorporateOrdersFactoryPay": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单付款信息id"
+        },
+        "orders_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "orders_id"
+        },
+        "customer_name": {
+          "type": "string",
+          "title": "客户名称"
+        },
+        "account": {
+          "type": "string",
+          "title": "账号"
+        },
+        "bank": {
+          "type": "string",
+          "title": "开户行"
+        },
+        "voucher": {
+          "type": "string",
+          "title": "付款凭证,图片"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 等待付款 \n 2: 已付款 \n ",
+          "title": "状态 [1:待付款, 2:已付款]"
+        },
+        "pay_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "付款时间"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        }
+      },
+      "description": "model.orders_factory_pay.orders_factory_pay",
+      "title": "orders_factory_pay"
+    },
+    "incorporateOrdersMaterial": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "id"
+        },
+        "orders_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "orders_id"
+        },
+        "settlement": {
+          "type": "string",
+          "title": "结算对账单资源"
+        },
+        "purchase": {
+          "type": "string",
+          "title": "采购结算单资源"
+        },
+        "bank_statement": {
+          "type": "string",
+          "title": "银行回单"
+        }
+      },
+      "description": "model.orders_material.orders_material",
+      "title": "orders_material"
+    },
+    "incorporateOrdersMerchandiseDetail": {
+      "type": "object",
+      "properties": {
+        "orders_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "订货id"
+        },
+        "name": {
+          "type": "string",
+          "title": "货物名称"
+        },
+        "price": {
+          "type": "string",
+          "title": "单价"
+        },
+        "quantity": {
+          "type": "string",
+          "title": "数量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "单位"
+        },
+        "total_price": {
+          "type": "string",
+          "title": "总价"
+        },
+        "other": {
+          "$ref": "#/definitions/incorporateOrdersMerchandiseOtherItem",
+          "title": "@gotags: binding:\"omitempty\" form:\"other\" comment:\"\" gorm:\"serializer:json\""
+        }
+      },
+      "description": "message.orders_merchandise.orders_merchandise_detail",
+      "title": "orders_merchandise_detail"
+    },
+    "incorporateOrdersMerchandiseOtherItem": {
+      "type": "object",
+      "properties": {
+        "load_weight": {
+          "type": "string",
+          "title": "装货重量"
+        },
+        "weight": {
+          "type": "string",
+          "title": "厂磅重量"
+        },
+        "empty_weight": {
+          "type": "string",
+          "title": "空重"
+        },
+        "settlement_weight": {
+          "type": "string",
+          "title": "结算重量"
+        }
+      },
+      "description": "message.orders_merchandise.orders_merchandise_other_item",
+      "title": "orders_merchandise_other_item"
+    },
+    "incorporatePabBindCard": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"id\" comment:\"\""
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "card_no": {
+          "type": "string",
+          "title": "卡号"
+        },
+        "bank_name": {
+          "type": "string",
+          "title": "银行名称"
+        },
+        "bank_alias_name": {
+          "type": "string",
+          "title": "银行简称"
+        },
+        "bank_branch_name": {
+          "type": "string",
+          "title": "支行名称"
+        },
+        "branch_bank_no": {
+          "type": "string",
+          "title": "大小额行号"
+        },
+        "super_bank_no": {
+          "type": "string",
+          "title": "超级网银号"
+        },
+        "bank_agent_code": {
+          "type": "string",
+          "title": "清算行号"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "绑定手机号"
+        },
+        "is_signed": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否是签约卡(仅标记,众包主体签约的银行卡)"
+        },
+        "is_default": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否默认"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"deleted_at\" comment:\"\""
+        }
+      },
+      "description": "model.pab_bind_card.pab_bind_card",
+      "title": "pab_bind_card"
+    },
+    "incorporatePabRegisterBill": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"id\" comment:\"\""
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "挂账的用户id"
+        },
+        "sub_acct_no": {
+          "type": "string",
+          "title": "挂账的银行子账号"
+        },
+        "member_property": {
+          "type": "string",
+          "title": "挂账的银行子账号类型"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 直接挂账(测试) \n 2: 充值挂账(未知用户充值,用于将充值挂载到指定用户下) \n ",
+          "title": "挂账类型,[0:未指定,1:直接挂账(用于测试),2:充值挂账(未知用户充值,用于将充值挂载到指定用户下)]"
+        },
+        "order_no": {
+          "type": "string",
+          "title": "订单号(全局唯一)"
+        },
+        "amt": {
+          "type": "string",
+          "title": "挂账金额,含交易费用,挂账金额=会员实际到账金额+交易费用"
+        },
+        "fee": {
+          "type": "string",
+          "title": "交易费用"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "cnsmr_seq_no": {
+          "type": "string",
+          "title": "交易流水号"
+        },
+        "front_seq_no": {
+          "type": "string",
+          "title": "见证系统流水号"
+        },
+        "revoke_cnsmr_seq_no": {
+          "type": "string",
+          "title": "撤销交易流水号"
+        },
+        "revoke_front_seq_no": {
+          "type": "string",
+          "title": "撤销见证流水号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 进行中 \n 2: 成功 \n 3: 失败 \n 4: 撤消 \n ",
+          "title": "挂账状态,[0:未指定,1:进行中,2:成功,3:失败,4:撤消]"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        }
+      },
+      "description": "model.pab_register_bill.pab_register_bill",
+      "title": "pab_register_bill"
+    },
+    "incorporatePabTransfer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "系统编号"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "所属用户id(tran_net_member_code)转换"
+        },
+        "front_seq_no": {
+          "type": "string",
+          "title": "见证系统流水号"
+        },
+        "sub_acct_no": {
+          "type": "string",
+          "title": "平安返回的见证子账号"
+        },
+        "tran_net_member_code": {
+          "type": "string",
+          "title": "交易网会员代码"
+        },
+        "in_acct_type": {
+          "type": "string",
+          "title": "入账类型[02:会员充值;03:资金挂账]"
+        },
+        "in_acct_no": {
+          "type": "string",
+          "title": "入金账号"
+        },
+        "in_acct_name": {
+          "type": "string",
+          "title": "入金账户名称"
+        },
+        "tran_amt": {
+          "type": "string",
+          "title": "入金金额(单位:元)"
+        },
+        "ccy": {
+          "type": "string",
+          "title": "币种"
+        },
+        "bank_name": {
+          "type": "string",
+          "title": "付款银行名称"
+        },
+        "accounting_date": {
+          "type": "string",
+          "title": "记账日期(格式20060102)"
+        },
+        "remark": {
+          "type": "string",
+          "title": "描述"
+        },
+        "accounting_date_unix": {
+          "type": "string",
+          "format": "int64",
+          "title": "记账日期accouting_date的时间戳"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 待处理 \n 2: 处理中 \n 3: 成功或已处理 \n 4: 无须处理 \n ",
+          "title": "转账状态,[0:未指定,1:待处理,2:处理中,3:成功或已处理,4:无须处理]"
+        },
+        "operator": {
+          "type": "string",
+          "title": "后台操作人员"
+        },
+        "operating_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "后台操作时间"
+        },
+        "compensation_sub_acct_no": {
+          "type": "string",
+          "title": "后台操作后-填入的见证子账号数据"
+        },
+        "compensation_uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "后台操作后-填入的用户id"
+        },
+        "compensation_username": {
+          "type": "string",
+          "title": "后台操作后-填入的用户名称"
+        },
+        "compensation_tran_amt": {
+          "type": "string",
+          "title": "后台操作后-填入的实际金额"
+        },
+        "register_bill_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "后台操作后-关联挂账记录的id"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        }
+      },
+      "description": "model.pab_transfer.pab_transfer",
+      "title": "pab_transfer"
+    },
+    "incorporateResource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "资源ID"
+        },
+        "pid": {
+          "type": "string",
+          "format": "int64",
+          "title": "父级资源,ID"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "title": "层级"
+        },
+        "tier": {
+          "type": "string",
+          "title": "层级"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未知的 \n 1: 菜单 \n 2: 按钮 \n 3: 接口 \n 4: 数据 \n ",
+          "title": "资源类型,[0:未指定,1:菜单,2:按钮,3:接口,4:数据]"
+        },
+        "code": {
+          "type": "string",
+          "title": "资源代码(路由name)"
+        },
+        "permission": {
+          "type": "string",
+          "title": "权限代码"
+        },
+        "title": {
+          "type": "string",
+          "title": "名称"
+        },
+        "path": {
+          "type": "string",
+          "title": "路由地址"
+        },
+        "method": {
+          "type": "string",
+          "title": "请求方法"
+        },
+        "link_target": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 当前窗口 \n 2: 新窗口 \n 3: 弹出窗口 \n 4: 弹出浏览器窗口 \n ",
+          "title": "链接目标,[0:未指定,1:当前窗口,2:新窗口,3:弹出窗口,4:弹出浏览器窗口]"
+        },
+        "icon": {
+          "type": "string",
+          "title": "图标"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "title": "排序"
+        },
+        "visible": {
+          "type": "integer",
+          "format": "int32",
+          "title": "可见性"
+        },
+        "is_enabled": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否使能"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        }
+      },
+      "description": "model.resource.resource",
+      "title": "resource"
+    },
+    "incorporateRole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "角色ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "desc": {
+          "type": "string",
+          "title": "角色描述"
+        },
+        "is_enabled": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否启用"
+        },
+        "creator": {
+          "type": "string",
+          "title": "创建人"
+        },
+        "updator": {
+          "type": "string",
+          "title": "修改人"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"deleted_at\" comment:\"\""
+        }
+      },
+      "description": "model.role.role",
+      "title": "role"
+    },
+    "incorporateSysUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 系统用户 \n 2: 供应链公司 \n 3: 钢厂 \n 4: 废品站 \n 5: 司机 \n ",
+          "title": "类型,[0:未指定,1:系统用户,2:供应链公司,3:钢厂,4:废品站,5:司机]"
+        },
+        "name": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "avatar": {
+          "type": "string",
+          "title": "头像"
+        },
+        "email": {
+          "type": "string",
+          "title": "email"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 男 \n 2: 女 \n 3: 未知 \n ",
+          "title": "性别,[0:未指定,1:男,2:女,3:未知]"
+        },
+        "last_login_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "最后一次登录时间"
+        },
+        "is_admin": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否是超级用户"
+        },
+        "need_change": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否需要修改密码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 启用 \n 2: 禁用 \n 3: 临时锁定 \n ",
+          "title": "状态,[0:未指定,1:启用,2:禁用,3:临时锁定]"
+        },
+        "creator": {
+          "type": "string",
+          "title": "创建人"
+        },
+        "updator": {
+          "type": "string",
+          "title": "修改人"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"deleted_at\" comment:\"\""
+        },
+        "new_tran_net_member_code": {
+          "type": "string",
+          "title": "平安银行新开户时,用的会员代码(新用户与uid一致,仅注销钱包时会生成一个新的)"
+        }
+      },
+      "description": "model.sys_user.sys_user",
+      "title": "sys_user"
+    },
+    "incorporateUploadsResponseItem": {
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "type": "string",
+          "title": "文件名"
+        },
+        "temp_url": {
+          "type": "string",
+          "title": "临时上传地址"
+        },
+        "file_path": {
+          "type": "string",
+          "title": "文件全路径"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64",
+          "title": "过期时间"
+        }
+      },
+      "description": "app.misc.uploads.uploads_response_item",
+      "title": "uploads_response_item"
+    },
+    "incorporateUserBase": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        }
+      },
+      "description": "message.user.user_base",
+      "title": "user_base"
+    },
+    "incorporateUserCar": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户车辆id"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户id"
+        },
+        "car_number": {
+          "type": "string",
+          "title": "车牌号"
+        },
+        "driver_license": {
+          "type": "string",
+          "title": "驾驶证"
+        },
+        "car_images": {
+          "type": "string",
+          "title": "车辆照片"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "driving_license": {
+          "type": "string",
+          "title": "行驶证"
+        },
+        "company_name": {
+          "type": "string",
+          "title": "归属公司"
+        }
+      },
+      "description": "model.user_car.user_car",
+      "title": "user_car"
+    },
+    "incorporateUserCarSubmit": {
+      "type": "object",
+      "properties": {
+        "company_name": {
+          "type": "string",
+          "title": "归属公司"
+        },
+        "driver_license": {
+          "type": "string",
+          "title": "驾驶证"
+        },
+        "car_images": {
+          "type": "string",
+          "title": "车辆照片"
+        },
+        "driving_license": {
+          "type": "string",
+          "title": "行驶证"
+        },
+        "car_number": {
+          "type": "string",
+          "title": "车牌号"
+        }
+      },
+      "description": "message.user_car.user_car_submit",
+      "title": "user_car_submit"
+    },
+    "incorporateUserCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "公司ID,同用户id"
+        },
+        "name": {
+          "type": "string",
+          "title": "公司名称"
+        },
+        "uniform_code": {
+          "type": "string",
+          "title": "社会统一信用代码"
+        },
+        "address": {
+          "type": "string",
+          "title": "公司地址"
+        },
+        "contact": {
+          "type": "string",
+          "title": "公司联系人"
+        },
+        "license": {
+          "type": "string",
+          "title": "营业执照"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "联系电话"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "软删标识符"
+        }
+      },
+      "description": "model.user_company.user_company",
+      "title": "user_company"
+    },
+    "incorporateUserPabBind": {
+      "type": "object",
+      "properties": {
+        "fund_summary_acct_no": {
+          "type": "string",
+          "title": "资金汇总账号"
+        },
+        "sub_acct_no": {
+          "type": "string",
+          "title": "见证子账户的账号"
+        },
+        "tran_net_member_code": {
+          "type": "string",
+          "title": "交易网会员代码"
+        },
+        "member_name": {
+          "type": "string",
+          "title": "会员名称"
+        },
+        "member_global_type": {
+          "type": "string",
+          "title": "会员证件类型"
+        },
+        "member_global_id": {
+          "type": "string",
+          "title": "会员证件号码"
+        },
+        "member_acct_no": {
+          "type": "string",
+          "title": "会员绑定账户的账号"
+        },
+        "bank_type": {
+          "type": "string",
+          "title": "会员绑定账户的本他行类型"
+        },
+        "acct_open_branch_name": {
+          "type": "string",
+          "title": "会员绑定账户的开户行名称"
+        },
+        "cnaps_branch_id": {
+          "type": "string",
+          "title": "会员绑定账户的开户行的联行号"
+        },
+        "eicon_bank_branch_id": {
+          "type": "string",
+          "title": "会员绑定账户的开户行的超级网银行号"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "会员的手机号"
+        }
+      },
+      "description": "message.user.user_pab_bind",
+      "title": "user_pab_bind"
+    },
+    "incorporateUserPersonal": {
+      "type": "object",
+      "properties": {
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "id_card_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 身份证 \n 3: 港澳台居民通行证(即回乡证) \n 4: 中国护照 \n 5: 台湾居民来往大陆通行证（即台胞证） \n 19: 外国护照 \n 52: 组织机构代码证 \n 68: 营业执照 \n 73: 统一社会信用代码 \n ",
+          "title": "证件类型,[1:身份证]"
+        },
+        "id_card": {
+          "type": "string",
+          "title": "证件号"
+        },
+        "card_images": {
+          "type": "string",
+          "title": "证件资源,号分开"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"\" gorm:\"serializer:unixtime\""
+        },
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户id"
+        },
+        "address": {
+          "type": "string",
+          "title": "地址"
+        },
+        "is_open_account": {
+          "type": "integer",
+          "format": "int32",
+          "title": "平安是否开户,[0:未开户,1:已开户]"
+        },
+        "commission_rate": {
+          "type": "string",
+          "title": "佣金比例"
+        }
+      },
+      "description": "model.user_personal.user_personal",
+      "title": "user_personal"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AddResourceRequest": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "string",
+          "format": "int64",
+          "title": "父级资源,ID"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未知的 \n 1: 菜单 \n 2: 按钮 \n 3: 接口 \n 4: 数据 \n ",
+          "title": "资源类型,[0:未指定,1:菜单,2:按钮,3:接口,4:数据]"
+        },
+        "code": {
+          "type": "string",
+          "title": "资源代码(路由name)"
+        },
+        "permission": {
+          "type": "string",
+          "title": "权限代码"
+        },
+        "title": {
+          "type": "string",
+          "title": "名称"
+        },
+        "path": {
+          "type": "string",
+          "title": "路由地址"
+        },
+        "method": {
+          "type": "string",
+          "description": "有效类型: \n GET: GET \n get: get \n POST: POST \n post: post \n PUT: PUT \n put: put \n DELETE: DELETE \n delete: delete \n PATCH: PATCH \n patch: patch \n ",
+          "title": "@gotags: binding:\"required_if=type 3,omitempty,oneof=GET get POST post PUT put DELETE delete PATCH patch\" form:\"method\" comment:\"有效类型: \\n GET: GET \\n get: get \\n POST: POST \\n post: post \\n PUT: PUT \\n put: put \\n DELETE: DELETE \\n delete: delete \\n PATCH: PATCH \\n patch: patch \\n \""
+        },
+        "link_target": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 当前窗口 \n 2: 新窗口 \n 3: 弹出窗口 \n 4: 弹出浏览器窗口 \n ",
+          "title": "链接目标,[0:未指定,1:当前窗口,2:新窗口,3:弹出窗口,4:弹出浏览器窗口]"
+        },
+        "icon": {
+          "type": "string",
+          "title": "图标"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "title": "排序"
+        },
+        "visible": {
+          "type": "boolean",
+          "title": "是否可见"
+        }
+      },
+      "description": "admin.resource.add_resource.add_resource_request",
+      "title": "add_resource_request",
+      "required": [
+        "type",
+        "title"
+      ]
+    },
+    "v1AddResourceResponse": {
+      "type": "object",
+      "description": "admin.resource.add_resource.add_resource_response",
+      "title": "add_resource_response"
+    },
+    "v1AddRoleRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "desc": {
+          "type": "string",
+          "title": "角色描述"
+        }
+      },
+      "description": "admin.role.add_role.add_role_request",
+      "title": "add_role_request",
+      "required": [
+        "name",
+        "desc"
+      ]
+    },
+    "v1AddRoleResponse": {
+      "type": "object",
+      "description": "admin.role.add_role.add_role_response",
+      "title": "add_role_response"
+    },
+    "v1AdjustPabTransferResponse": {
+      "type": "object",
+      "description": "admin.pab.adjust_pab_transfer.adjust_pab_transfer_response",
+      "title": "adjust_pab_transfer_response"
+    },
+    "v1AdjustResultResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 处理中 \n 2: 成功 \n 4: 失败 \n ",
+          "title": "@gotags: binding:\"omitempty\" form:\"status\" comment:\"有效类型: \\n 1: 处理中 \\n 2: 成功 \\n 4: 失败 \\n \""
+        }
+      },
+      "description": "admin.pab.adjust_result.adjust_result_response",
+      "title": "adjust_result_response"
+    },
+    "v1AuthzRoleWithResourceResponse": {
+      "type": "object",
+      "description": "admin.role.authz_role_with_resource.authz_role_with_resource_response",
+      "title": "authz_role_with_resource_response"
+    },
+    "v1AuthzUserWithRoleResponse": {
+      "type": "object",
+      "description": "admin.user.authz_user_with_role.authz_user_with_role_response",
+      "title": "authz_user_with_role_response"
+    },
+    "v1CommissionRateResponse": {
+      "type": "object",
+      "description": "admin.business_user.commission_rate.commission_rate_response",
+      "title": "commission_rate_response"
+    },
+    "v1CreateSysUserRequest": {
+      "type": "object",
+      "properties": {
+        "acc": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 男 \n 2: 女 \n 3: 未知 \n ",
+          "title": "性别,[0:未指定,1:男,2:女,3:未知]"
+        },
+        "new_password": {
+          "type": "string",
+          "title": "密码,如果为空则使用默认密码"
+        }
+      },
+      "description": "admin.user.create_sys_user.create_sys_user_request",
+      "title": "create_sys_user_request",
+      "required": [
+        "acc",
+        "real_name"
+      ]
+    },
+    "v1CreateSysUserResponse": {
+      "type": "object",
+      "description": "admin.user.create_sys_user.create_sys_user_response",
+      "title": "create_sys_user_response"
+    },
+    "v1DeleteResourceResponse": {
+      "type": "object",
+      "description": "admin.resource.delete_resource.delete_resource_response",
+      "title": "delete_resource_response"
+    },
+    "v1GetInvoiceResponse": {
+      "type": "object",
+      "properties": {
+        "invoice": {
+          "$ref": "#/definitions/incorporateInvoice",
+          "title": "@gotags: binding:\"omitempty\" form:\"invoice\" comment:\"\""
+        },
+        "bind_orders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateInvoiceApplyOrders"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"bind_orders\" comment:\"\""
+        }
+      },
+      "description": "admin.invoice.get_invoice.get_invoice_response",
+      "title": "get_invoice_response"
+    },
+    "v1GetOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "orders": {
+          "$ref": "#/definitions/incorporateOrders",
+          "title": "订单信息"
+        },
+        "factory_pay": {
+          "$ref": "#/definitions/incorporateOrdersFactoryPay",
+          "title": "工厂支付"
+        },
+        "material": {
+          "$ref": "#/definitions/incorporateOrdersMaterial",
+          "title": "订单资料"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateUserBase"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"users\" comment:\"\""
+        },
+        "merchandise": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateOrdersMerchandiseDetail"
+          },
+          "title": "商品"
+        },
+        "car": {
+          "$ref": "#/definitions/incorporateUserCar",
+          "title": "@gotags: binding:\"omitempty\" form:\"car\" comment:\"\""
+        }
+      },
+      "description": "admin.orders_manager.get_orders.get_orders_response",
+      "title": "get_orders_response"
+    },
+    "v1GetPabTransferResponse": {
+      "type": "object",
+      "properties": {
+        "pab_transfer": {
+          "$ref": "#/definitions/incorporatePabTransfer",
+          "title": "充值转账信息"
+        }
+      },
+      "description": "admin.pab.get_pab_transfer.get_pab_transfer_response",
+      "title": "get_pab_transfer_response"
+    },
+    "v1GetResourceResponse": {
+      "type": "object",
+      "properties": {
+        "tier": {
+          "type": "string",
+          "title": "层级"
+        },
+        "code": {
+          "type": "string",
+          "title": "资源代码(路由name)"
+        },
+        "method": {
+          "type": "string",
+          "title": "请求方法"
+        },
+        "link_target": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 当前窗口 \n 2: 新窗口 \n 3: 弹出窗口 \n 4: 弹出浏览器窗口 \n ",
+          "title": "链接目标,[0:未指定,1:当前窗口,2:新窗口,3:弹出窗口,4:弹出浏览器窗口]"
+        },
+        "visible": {
+          "type": "integer",
+          "format": "int32",
+          "title": "可见性"
+        },
+        "pid": {
+          "type": "string",
+          "format": "int64",
+          "title": "父级资源,ID"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未知的 \n 1: 菜单 \n 2: 按钮 \n 3: 接口 \n 4: 数据 \n ",
+          "title": "资源类型,[0:未指定,1:菜单,2:按钮,3:接口,4:数据]"
+        },
+        "permission": {
+          "type": "string",
+          "title": "权限代码"
+        },
+        "icon": {
+          "type": "string",
+          "title": "图标"
+        },
+        "is_enabled": {
+          "type": "integer",
+          "format": "int32",
+          "title": "是否使能"
+        },
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "资源ID"
+        },
+        "title": {
+          "type": "string",
+          "title": "名称"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"created_at\" comment:\"  \" gorm:\"serializer:unixtime\""
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "title": "层级"
+        },
+        "path": {
+          "type": "string",
+          "title": "路由地址"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "title": "排序"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: binding:\"omitempty\" form:\"updated_at\" comment:\"  \" gorm:\"serializer:unixtime\""
+        }
+      },
+      "description": "admin.resource.get_resource.get_resource_response",
+      "title": "get_resource_response"
+    },
+    "v1GetRoleResponse": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/incorporateRole",
+          "title": "@gotags: binding:\"omitempty\" form:\"role\" comment:\"\""
+        }
+      },
+      "description": "admin.role.get_role.get_role_response",
+      "title": "get_role_response"
+    },
+    "v1InitUserResponse": {
+      "type": "object",
+      "description": "admin.user.init_user.init_user_response",
+      "title": "init_user_response"
+    },
+    "v1ListInvoiceResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateAdminListInvoiceResponseItem"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        },
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        }
+      },
+      "description": "admin.invoice.list_invoice.list_invoice_response",
+      "title": "list_invoice_response"
+    },
+    "v1ListOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateAdminListOrdersResponseItem"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        },
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateUserBase"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"users\" comment:\"\""
+        }
+      },
+      "description": "admin.orders_manager.list_orders.list_orders_response",
+      "title": "list_orders_response"
+    },
+    "v1ListPabTransferResponse": {
+      "type": "object",
+      "properties": {
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporatePabTransfer"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.pab.list_pab_transfer.list_pab_transfer_response",
+      "title": "list_pab_transfer_response"
+    },
+    "v1ListRegisterBillSupportWithdrawResponse": {
+      "type": "object",
+      "properties": {
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporatePabRegisterBill"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.pab.list_register_bill_support_withdraw.list_register_bill_support_withdraw_response",
+      "title": "list_register_bill_support_withdraw_response"
+    },
+    "v1ListResourceIdsWithRoleResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "资源ID"
+        }
+      },
+      "description": "admin.role.list_resource_ids_with_role.list_resource_ids_with_role_response",
+      "title": "list_resource_ids_with_role_response"
+    },
+    "v1ListResourceResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateResource"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.resource.list_resource.list_resource_response",
+      "title": "list_resource_response"
+    },
+    "v1ListResourceWithUserResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateResource"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.user.list_resource_with_user.list_resource_with_user_response",
+      "title": "list_resource_with_user_response"
+    },
+    "v1ListRoleResponse": {
+      "type": "object",
+      "properties": {
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "page_size": {
+          "type": "string",
+          "format": "int64",
+          "title": "一页多少条"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateRole"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.role.list_role.list_role_response",
+      "title": "list_role_response"
+    },
+    "v1ListRoleWithUserResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateRole"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.user.list_role_with_user.list_role_with_user_response",
+      "title": "list_role_with_user_response"
+    },
+    "v1MemberBindQueryRequest": {
+      "type": "object",
+      "properties": {
+        "is_all": {
+          "type": "boolean",
+          "title": "是否查询全部会员"
+        },
+        "sub_acct_no": {
+          "type": "string",
+          "title": "银行子账号"
+        },
+        "page_index": {
+          "type": "string",
+          "format": "int64",
+          "title": "页码"
+        }
+      },
+      "description": "admin.pab.member_bind_query.member_bind_query_request",
+      "title": "member_bind_query_request"
+    },
+    "v1MemberBindQueryResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateUserPabBind"
+          },
+          "title": "会员绑定信息列表"
+        },
+        "result_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "本次交易返回查询结果记录数"
+        },
+        "start_record_no": {
+          "type": "string",
+          "format": "int64",
+          "title": "起始记录号"
+        },
+        "is_end": {
+          "type": "boolean",
+          "title": "是否结束标志"
+        },
+        "total_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "符合业务查询条件的记录总数"
+        }
+      },
+      "description": "admin.pab.member_bind_query.member_bind_query_response",
+      "title": "member_bind_query_response"
+    },
+    "v1QueryUserResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateUserBase"
+          },
+          "title": "@gotags: binding:\"omitempty\" form:\"list\" comment:\"\""
+        }
+      },
+      "description": "admin.business_user.query_user.query_user_response",
+      "title": "query_user_response"
+    },
+    "v1RegisterBillSupportWithdrawRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "amt": {
+          "type": "string",
+          "title": "金额"
+        },
+        "fee": {
+          "type": "string",
+          "title": "手续费"
+        },
+        "remark": {
+          "type": "string",
+          "title": "@gotags: binding:\"max=255\" form:\"remark\" comment:\"\""
+        }
+      },
+      "description": "admin.pab.register_bill_support_withdraw.register_bill_support_withdraw_request",
+      "title": "register_bill_support_withdraw_request"
+    },
+    "v1RegisterBillSupportWithdrawResponse": {
+      "type": "object",
+      "description": "admin.pab.register_bill_support_withdraw.register_bill_support_withdraw_response",
+      "title": "register_bill_support_withdraw_response"
+    },
+    "v1RegisterBillSupportWithdrawResultResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 进行中 \n 2: 成功 \n 3: 失败 \n 4: 撤消 \n ",
+          "title": "挂账状态,[0:未指定,1:进行中,2:成功,3:失败,4:撤消]"
+        }
+      },
+      "description": "admin.pab.register_bill_support_withdraw_result.register_bill_support_withdraw_result_response",
+      "title": "register_bill_support_withdraw_result_response"
+    },
+    "v1RegisteredCompanyRequest": {
+      "type": "object",
+      "properties": {
+        "register_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 2: 供应链公司 \n 3: 钢厂 \n ",
+          "title": "@gotags: binding:\"required,oneof=2 3\" form:\"register_type\" comment:\"有效类型: \\n 2: 供应链公司 \\n 3: 钢厂 \\n \""
+        },
+        "acc": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "company_name": {
+          "type": "string",
+          "title": "公司名称"
+        },
+        "uniform_code": {
+          "type": "string",
+          "title": "社会统一信用代码"
+        },
+        "contact": {
+          "type": "string",
+          "title": "公司联系人"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "联系电话"
+        },
+        "address": {
+          "type": "string",
+          "title": "公司地址"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "id_card": {
+          "type": "string",
+          "title": "证件号"
+        },
+        "id_card_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 身份证 \n 3: 港澳台居民通行证(即回乡证) \n 4: 中国护照 \n 5: 台湾居民来往大陆通行证（即台胞证） \n 19: 外国护照 \n 52: 组织机构代码证 \n 68: 营业执照 \n 73: 统一社会信用代码 \n ",
+          "title": "证件类型,[1:身份证]"
+        },
+        "license": {
+          "type": "string",
+          "title": "营业执照"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        }
+      },
+      "description": "admin.business_user.registered_company.registered_company_request",
+      "title": "registered_company_request",
+      "required": [
+        "company_name",
+        "uniform_code",
+        "contact",
+        "mobile",
+        "real_name",
+        "id_card",
+        "id_card_type"
+      ]
+    },
+    "v1RegisteredCompanyResponse": {
+      "type": "object",
+      "description": "admin.business_user.registered_company.registered_company_response",
+      "title": "registered_company_response"
+    },
+    "v1RegisteredDriverRequest": {
+      "type": "object",
+      "properties": {
+        "acc": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "id_card": {
+          "type": "string",
+          "title": "证件号"
+        },
+        "id_card_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 身份证 \n 3: 港澳台居民通行证(即回乡证) \n 4: 中国护照 \n 5: 台湾居民来往大陆通行证（即台胞证） \n 19: 外国护照 \n 52: 组织机构代码证 \n 68: 营业执照 \n 73: 统一社会信用代码 \n ",
+          "title": "证件类型,[1:身份证]"
+        },
+        "address": {
+          "type": "string",
+          "title": "地址"
+        },
+        "user_car": {
+          "$ref": "#/definitions/incorporateUserCarSubmit",
+          "title": "车辆信息"
+        }
+      },
+      "description": "admin.business_user.registered_driver.registered_driver_request",
+      "title": "registered_driver_request",
+      "required": [
+        "real_name",
+        "id_card",
+        "id_card_type"
+      ]
+    },
+    "v1RegisteredDriverResponse": {
+      "type": "object",
+      "description": "admin.business_user.registered_driver.registered_driver_response",
+      "title": "registered_driver_response"
+    },
+    "v1RegisteredSiteRequest": {
+      "type": "object",
+      "properties": {
+        "acc": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "real_name": {
+          "type": "string",
+          "title": "真实姓名"
+        },
+        "id_card": {
+          "type": "string",
+          "title": "证件号"
+        },
+        "id_card_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 1: 身份证 \n 3: 港澳台居民通行证(即回乡证) \n 4: 中国护照 \n 5: 台湾居民来往大陆通行证（即台胞证） \n 19: 外国护照 \n 52: 组织机构代码证 \n 68: 营业执照 \n 73: 统一社会信用代码 \n ",
+          "title": "证件类型,[1:身份证]"
+        },
+        "address": {
+          "type": "string",
+          "title": "地址"
+        }
+      },
+      "description": "admin.business_user.registered_site.registered_site_request",
+      "title": "registered_site_request",
+      "required": [
+        "real_name",
+        "id_card",
+        "id_card_type"
+      ]
+    },
+    "v1RegisteredSiteResponse": {
+      "type": "object",
+      "description": "admin.business_user.registered_site.registered_site_response",
+      "title": "registered_site_response"
+    },
+    "v1ResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "new_password": {
+          "type": "string",
+          "title": "新密码,如果为空则使用默认密码"
+        }
+      },
+      "description": "admin.user.reset_password.reset_password_request",
+      "title": "reset_password_request",
+      "required": [
+        "id"
+      ]
+    },
+    "v1ResetPasswordResponse": {
+      "type": "object",
+      "description": "admin.user.reset_password.reset_password_response",
+      "title": "reset_password_response"
+    },
+    "v1SysLoginRequest": {
+      "type": "object",
+      "properties": {
+        "acc": {
+          "type": "string",
+          "title": "登录名,(不可修改)"
+        },
+        "pwd": {
+          "type": "string",
+          "title": "@gotags: binding:\"required,min=6\" form:\"pwd\" comment:\"\""
+        }
+      },
+      "description": "admin.user.sys_login.sys_login_request",
+      "title": "sys_login_request",
+      "required": [
+        "acc",
+        "pwd"
+      ]
+    },
+    "v1SysLoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "title": "@gotags: binding:\"omitempty\" form:\"token\" comment:\"\""
+        }
+      },
+      "description": "admin.user.sys_login.sys_login_response",
+      "title": "sys_login_response"
+    },
+    "v1ToggleRoleStatusResponse": {
+      "type": "object",
+      "description": "admin.role.toggle_role_status.toggle_role_status_response",
+      "title": "toggle_role_status_response"
+    },
+    "v1ToggleUserStatusResponse": {
+      "type": "object",
+      "description": "admin.user.toggle_user_status.toggle_user_status_response",
+      "title": "toggle_user_status_response"
+    },
+    "v1UpdatePasswordRequest": {
+      "type": "object",
+      "properties": {
+        "old_password": {
+          "type": "string",
+          "title": "旧密码"
+        },
+        "new_password": {
+          "type": "string",
+          "title": "新密码"
+        }
+      },
+      "description": "admin.user.update_password.update_password_request",
+      "title": "update_password_request"
+    },
+    "v1UpdatePasswordResponse": {
+      "type": "object",
+      "description": "admin.user.update_password.update_password_response",
+      "title": "update_password_response"
+    },
+    "v1UpdateResourceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "资源ID"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未知的 \n 1: 菜单 \n 2: 按钮 \n 3: 接口 \n 4: 数据 \n ",
+          "title": "资源类型,[0:未指定,1:菜单,2:按钮,3:接口,4:数据]"
+        },
+        "code": {
+          "type": "string",
+          "title": "资源代码(路由name)"
+        },
+        "permission": {
+          "type": "string",
+          "title": "权限代码"
+        },
+        "title": {
+          "type": "string",
+          "title": "名称"
+        },
+        "path": {
+          "type": "string",
+          "title": "路由地址"
+        },
+        "method": {
+          "type": "string",
+          "description": "有效类型: \n GET: GET \n get: get \n POST: POST \n post: post \n PUT: PUT \n put: put \n DELETE: DELETE \n delete: delete \n PATCH: PATCH \n patch: patch \n ",
+          "title": "@gotags: binding:\"required_if=type 3,omitempty,oneof=GET get POST post PUT put DELETE delete PATCH patch\" form:\"method\" comment:\"有效类型: \\n GET: GET \\n get: get \\n POST: POST \\n post: post \\n PUT: PUT \\n put: put \\n DELETE: DELETE \\n delete: delete \\n PATCH: PATCH \\n patch: patch \\n \""
+        },
+        "link_target": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 当前窗口 \n 2: 新窗口 \n 3: 弹出窗口 \n 4: 弹出浏览器窗口 \n ",
+          "title": "链接目标,[0:未指定,1:当前窗口,2:新窗口,3:弹出窗口,4:弹出浏览器窗口]"
+        },
+        "icon": {
+          "type": "string",
+          "title": "图标"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "title": "排序"
+        },
+        "visible": {
+          "type": "boolean",
+          "title": "是否可见"
+        }
+      },
+      "description": "admin.resource.update_resource.update_resource_request",
+      "title": "update_resource_request",
+      "required": [
+        "type"
+      ]
+    },
+    "v1UpdateResourceResponse": {
+      "type": "object",
+      "description": "admin.resource.update_resource.update_resource_response",
+      "title": "update_resource_response"
+    },
+    "v1UpdateRoleResponse": {
+      "type": "object",
+      "description": "admin.role.update_role.update_role_response",
+      "title": "update_role_response"
+    },
+    "v1UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "有效类型: \n 0: 未指定 \n 1: 男 \n 2: 女 \n 3: 未知 \n ",
+          "title": "性别,[0:未指定,1:男,2:女,3:未知]"
+        },
+        "avatar": {
+          "type": "string",
+          "title": "头像"
+        },
+        "email": {
+          "type": "string",
+          "title": "email"
+        }
+      },
+      "description": "admin.user.update_user.update_user_request",
+      "title": "update_user_request",
+      "required": [
+        "id"
+      ]
+    },
+    "v1UpdateUserResponse": {
+      "type": "object",
+      "description": "admin.user.update_user.update_user_response",
+      "title": "update_user_response"
+    },
+    "v1UploadsRequest": {
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "文件名"
+        }
+      },
+      "description": "admin.misc.uploads.uploads_request",
+      "title": "uploads_request"
+    },
+    "v1UploadsResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/incorporateUploadsResponseItem"
+          },
+          "title": "返回临时上传地址"
+        }
+      },
+      "description": "admin.misc.uploads.uploads_response",
+      "title": "uploads_response"
+    }
+  }
+}
